@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
 import { Customizer } from "./components/customizer";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
   useEffect(() => {
@@ -22,13 +20,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <div className="flex flex-col md:flex-row gap-4">
       <Customizer />
-      <div className="mt-4">
-        <Link href="/config">
-          <Button>View Generated Config</Button>
-        </Link>
-      </div>
-    </main>
+    </div>
   );
 }

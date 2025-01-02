@@ -67,9 +67,9 @@ export function Customizer() {
   }, [theme]);
 
   return (
-    <div className="flex w-full gap-4">
+    <>
       <ControlPanel theme={theme} setTheme={setTheme} />
       <Preview theme={theme} />
-    </div>
+    </>
   );
 }
