@@ -29,7 +29,11 @@ export function Preview({ theme }: PreviewProps) {
     "--gradient-end": theme.gradientEnd,
     "--font-size": theme.fontSize,
     background: theme.useGradientBackground
-      ? `linear-gradient(to right, ${theme.gradientStart}, ${theme.gradientEnd})`
+      ? `linear-gradient(${theme.gradientDirection}, ${theme.gradientStart} ${
+          theme.gradientStops[0]
+        }, ${theme.gradientEnd} ${
+          theme.gradientStops[theme.gradientStops.length - 1]
+        })`
       : theme.backgroundColor,
     color: theme.textColor,
     fontSize: theme.fontSize,
@@ -43,12 +47,32 @@ export function Preview({ theme }: PreviewProps) {
       style={previewStyle}
     >
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold">Heading 1</h1>
-        <h2 className="text-3xl font-semibold">Heading 2</h2>
-        <h3 className="text-2xl font-medium">Heading 3</h3>
-        <h4 className="text-xl font-normal">Heading 4</h4>
+        <h1
+          className="font-bold"
+          style={{ color: theme.h1Color, fontSize: theme.h1FontSize }}
+        >
+          Heading 1
+        </h1>
+        <h2
+          className="font-semibold"
+          style={{ color: theme.h2Color, fontSize: theme.h2FontSize }}
+        >
+          Heading 2
+        </h2>
+        <h3
+          className="font-medium"
+          style={{ color: theme.h3Color, fontSize: theme.h3FontSize }}
+        >
+          Heading 3
+        </h3>
+        <h4
+          className="font-normal"
+          style={{ color: theme.h4Color, fontSize: theme.h4FontSize }}
+        >
+          Heading 4
+        </h4>
 
-        <p className="text-base">
+        <p style={{ color: theme.pColor, fontSize: theme.pFontSize }}>
           This is a paragraph with some text. The quick brown fox jumps over the
           lazy dog.
         </p>

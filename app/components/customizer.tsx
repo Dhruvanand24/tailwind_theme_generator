@@ -11,9 +11,21 @@ export type Theme = {
   backgroundColor: string;
   gradientStart: string;
   gradientEnd: string;
+  gradientDirection: "to right" | "to bottom" | "to bottom right";
+  gradientStops: string[];
   fontSize: string;
   fontFamily: string;
   useGradientBackground: boolean;
+  h1Color: string;
+  h2Color: string;
+  h3Color: string;
+  h4Color: string;
+  pColor: string;
+  h1FontSize: string;
+  h2FontSize: string;
+  h3FontSize: string;
+  h4FontSize: string;
+  pFontSize: string;
 };
 
 const defaultTheme: Theme = {
@@ -23,9 +35,21 @@ const defaultTheme: Theme = {
   backgroundColor: "#ffffff",
   gradientStart: "#4f46e5",
   gradientEnd: "#7c3aed",
+  gradientDirection: "to right",
+  gradientStops: ["0%", "100%"],
   fontSize: "16px",
-  fontFamily: "Inter",
+  fontFamily: "inter",
   useGradientBackground: false,
+  h1Color: "#1f2937",
+  h2Color: "#1f2937",
+  h3Color: "#1f2937",
+  h4Color: "#1f2937",
+  pColor: "#1f2937",
+  h1FontSize: "2.25rem",
+  h2FontSize: "1.875rem",
+  h3FontSize: "1.5rem",
+  h4FontSize: "1.25rem",
+  pFontSize: "1rem",
 };
 
 export function Customizer() {
