@@ -1,0 +1,67 @@
+.card-container {
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.text-color-section label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.text-color-section,
+.background-color-section {
+  width: 100%;
+}
+
+.text-color-section .input-wrapper,
+.background-color-section .input-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.text-color-section .input-wrapper input,
+.background-color-section .input-wrapper input {
+  font-size: 1rem;
+}
+
+.text-color-section .input-wrapper input {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.background-color-section label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.background-color-section .input-wrapper input {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.background-color-section .input-wrapper button,
+.text-color-section .input-wrapper button {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  position: absolute;
+  top: 17px;
+  right: 8px;
+}

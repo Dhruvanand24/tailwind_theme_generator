@@ -1,0 +1,21 @@
+.cardRightSide {
+  width: 100%;
+  gap: 50px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.cardRightSide h3 {
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.cardRightSide p {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
