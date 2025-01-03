@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { HexColorPicker } from "react-colorful";
 import ColorPicker from "react-best-gradient-color-picker";
 import {
   Select,
@@ -25,18 +24,6 @@ import {
 import { Theme } from "./customizer";
 import { useFonts } from "../FontProvider";
 import { ChevronDown, ChevronUp, Paintbrush, Type, Layout } from "lucide-react";
-import useColorScheme from "../hooks/useColorScheme";
-import { Button } from "@/components/ui/button";
-
-type ColorSchemeMode =
-  | "monochrome"
-  | "monochrome-dark"
-  | "monochrome-light"
-  | "analogic"
-  | "complement"
-  | "analogic-complement"
-  | "triad"
-  | "quad";
 
 type ControlPanelProps = {
   theme: Theme;
@@ -47,22 +34,8 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
   const fonts = useFonts();
   const [fontSearch, setFontSearch] = useState("");
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
-  const [seedColor, setSeedColor] = useState<string>("0047AB");
-  const [mode, setMode] = useState<ColorSchemeMode>("monochrome"); // Now supports more modes
-  const { colorScheme, loading, error } = useColorScheme(seedColor, {
-    mode,
-    count: 6,
-  });
-  const [color, setColor] = useState("rgba(255,255,255,1)");
+  const [color, setColor] = useState(theme.backgroundColor);
 
-  const handleColorCopy = (color: string) => {
-    navigator.clipboard.writeText(color).then(() => {
-      alert(`Copied color: ${color}`);
-    });
-  };
-  const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSeedColor(e.target.value.replace("#", ""));
-  };
   const handleChange = (
     key: keyof Theme,
     value: string | boolean | string[]
@@ -76,6 +49,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
   useEffect(() => {
     handleChange("backgroundColor", color);
   }, [color]);
+
   return (
     <div className="w-full md:w-1/3 p-4 bg-background rounded-lg shadow-lg overflow-y-auto h-screen">
       <Tabs defaultValue="colors" className="space-y-4">
@@ -176,7 +150,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
             </CardContent>
           </Card>
 
-          <Card>
+          {/* <Card>
             <CardHeader>
               <CardTitle>Gradient Background</CardTitle>
               <CardDescription>Configure gradient settings</CardDescription>
@@ -285,89 +259,6 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
                 </>
               )}
             </CardContent>
-          </Card>
-          {/* <Card className="max-w-lg mx-auto bg-white shadow-lg rounded-lg">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold">
-                Generate Color Palette
-              </CardTitle>
-              <CardDescription>Make a beautiful color palette</CardDescription>
-            </CardHeader>
-
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="text">Enter Seed Color</Label>
-
-                  <input
-                    type="text"
-                    value={`${seedColor}`}
-                    onChange={handleColorChange}
-                    className="p-2 border rounded-md w-32 mt-1"
-                  />
-                  <HexColorPicker
-                    color={`${seedColor}`}
-                    onChange={(color) => setSeedColor(color.replace("#", ""))}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="gradientDirection">Select Mode</Label>
-                  <Select
-                    value={mode}
-                    onValueChange={(e) => setMode(e as ColorSchemeMode)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="monochrome">Monochrome</SelectItem>
-                      <SelectItem value="monochrome-dark">
-                        Monochrome Dark
-                      </SelectItem>
-                      <SelectItem value="monochrome-light">
-                        Monochrome Light
-                      </SelectItem>
-                      <SelectItem value="analogic">Analogic</SelectItem>
-                      <SelectItem value="complement">Complement</SelectItem>
-                      <SelectItem value="analogic-complement">
-                        Analogic Complement
-                      </SelectItem>
-                      <SelectItem value="triad">Triad</SelectItem>
-                      <SelectItem value="quad">Quad</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {error && <p className="text-red-500">{error}</p>}
-
-                {colorScheme && colorScheme.colors && (
-                  <div className="mt-6">
-                    <h2 className="text-lg font-semibold">Color Scheme</h2>
-                    <div className="flex flex-col w-full bg-red">
-                      {colorScheme.colors.map(
-                        (
-                          color: {
-                            hex: { value: string };
-                            name: { value: string };
-                          },
-                          index: number
-                        ) => (
-                          <div>
-                            <Button
-                              onClick={() => handleColorCopy(color.hex.value)}
-                              key={index}
-                              className="relative h-10 w-full rounded-none hover:scale-105 ease-in-out transition-all"
-                              style={{ backgroundColor: color.hex.value }}
-                            ></Button>
-                          
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
           </Card> */}
         </TabsContent>
 
@@ -403,9 +294,9 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
                   <SelectContent>
                     {filteredFonts.map((font) => (
                       <SelectItem
-                        className={` ${fonts[font as keyof typeof fonts]}`}
                         key={font}
                         value={font}
+                        className={` ${fonts[font as keyof typeof fonts]}`}
                       >
                         {font}
                       </SelectItem>
@@ -437,17 +328,20 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
                 </div>
               </div>
 
-              <div
-                className="flex items-center justify-between cursor-pointer"
-                onClick={() => setIsAdvancedOpen(!isAdvancedOpen)}
-              >
-                <span className="font-semibold">
-                  Advanced Typography Settings
-                </span>
-                {isAdvancedOpen ? <ChevronUp /> : <ChevronDown />}
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="useAdvancedTypography"
+                  checked={theme.useAdvancedTypography}
+                  onCheckedChange={(checked) =>
+                    handleChange("useAdvancedTypography", checked)
+                  }
+                />
+                <Label htmlFor="useAdvancedTypography">
+                  Use Advanced Typography Settings
+                </Label>
               </div>
 
-              {isAdvancedOpen && (
+              {theme.useAdvancedTypography && (
                 <div className="space-y-4">
                   {["h1", "h2", "h3", "h4", "p"].map((element) => (
                     <div key={element} className="space-y-2">

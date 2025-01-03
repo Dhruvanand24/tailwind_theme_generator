@@ -1,22 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Theme } from "../components/customizer";
+import { useTheme } from "../contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 
 export default function ConfigPage() {
-  const [theme, setTheme] = useState<Theme | null>(null);
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("customTheme");
-    if (storedTheme) {
-      setTheme(JSON.parse(storedTheme));
-    }
-  }, []);
-
-  if (!theme) {
-    return <div>Loading...</div>;
-  }
+  const { theme } = useTheme();
 
   const tailwindConfig = `
 module.exports = {
@@ -27,19 +15,31 @@ module.exports = {
         secondary: '${theme.secondaryColor}',
         text: '${theme.textColor}',
         background: '${theme.backgroundColor}',
+        ${
+          theme.useAdvancedTypography
+            ? `
         h1: '${theme.h1Color}',
         h2: '${theme.h2Color}',
         h3: '${theme.h3Color}',
         h4: '${theme.h4Color}',
         p: '${theme.pColor}',
+        `
+            : ""
+        }
       },
       fontSize: {
         base: '${theme.fontSize}',
+        ${
+          theme.useAdvancedTypography
+            ? `
         h1: '${theme.h1FontSize}',
         h2: '${theme.h2FontSize}',
         h3: '${theme.h3FontSize}',
         h4: '${theme.h4FontSize}',
         p: '${theme.pFontSize}',
+        `
+            : ""
+        }
       },
       fontFamily: {
         sans: ['${theme.fontFamily}', 'sans-serif'],
@@ -66,6 +66,9 @@ module.exports = {
   --gradient-end: ${theme.gradientEnd};
   --font-size: ${theme.fontSize};
   --font-family: ${theme.fontFamily};
+  ${
+    theme.useAdvancedTypography
+      ? `
   --h1-color: ${theme.h1Color};
   --h2-color: ${theme.h2Color};
   --h3-color: ${theme.h3Color};
@@ -76,6 +79,9 @@ module.exports = {
   --h3-font-size: ${theme.h3FontSize};
   --h4-font-size: ${theme.h4FontSize};
   --p-font-size: ${theme.pFontSize};
+  `
+      : ""
+  }
   --gradient-direction: ${theme.gradientDirection};
   --gradient-stops: ${theme.gradientStops.join(", ")};
 }
@@ -95,11 +101,17 @@ body {
   font-family: var(--font-family), sans-serif;
 }
 
+${
+  theme.useAdvancedTypography
+    ? `
 h1 { color: var(--h1-color); font-size: var(--h1-font-size); }
 h2 { color: var(--h2-color); font-size: var(--h2-font-size); }
 h3 { color: var(--h3-color); font-size: var(--h3-font-size); }
 h4 { color: var(--h4-color); font-size: var(--h4-font-size); }
 p { color: var(--p-color); font-size: var(--p-font-size); }
+`
+    : ""
+}
 `;
 
   const copyToClipboard = (text: string) => {
