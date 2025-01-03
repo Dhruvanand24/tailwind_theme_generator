@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { HexColorPicker } from "react-colorful";
+import ColorPicker from "react-best-gradient-color-picker";
 import {
   Select,
   SelectContent,
@@ -52,6 +53,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
     mode,
     count: 6,
   });
+  const [color, setColor] = useState("rgba(255,255,255,1)");
 
   const handleColorCopy = (color: string) => {
     navigator.clipboard.writeText(color).then(() => {
@@ -71,7 +73,9 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
   const filteredFonts = Object.keys(fonts).filter((font) =>
     font.toLowerCase().includes(fontSearch.toLowerCase())
   );
-
+  useEffect(() => {
+    handleChange("backgroundColor", color);
+  }, [color]);
   return (
     <div className="w-full md:w-1/3 p-4 bg-background rounded-lg shadow-lg overflow-y-auto h-screen">
       <Tabs defaultValue="colors" className="space-y-4">
@@ -166,23 +170,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
               <div>
                 <Label htmlFor="backgroundColor">Background Color</Label>
                 <div className="flex items-center space-x-2">
-                  <Input
-                    id="backgroundColor"
-                    type="color"
-                    value={theme.backgroundColor}
-                    onChange={(e) =>
-                      handleChange("backgroundColor", e.target.value)
-                    }
-                    className="w-12 h-12 p-1 rounded-md"
-                  />
-                  <Input
-                    type="text"
-                    value={theme.backgroundColor}
-                    onChange={(e) =>
-                      handleChange("backgroundColor", e.target.value)
-                    }
-                    className="flex-grow"
-                  />
+                  <ColorPicker value={color} onChange={setColor} />
                 </div>
               </div>
             </CardContent>
@@ -298,7 +286,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
               )}
             </CardContent>
           </Card>
-          <Card className="max-w-lg mx-auto bg-white shadow-lg rounded-lg">
+          {/* <Card className="max-w-lg mx-auto bg-white shadow-lg rounded-lg">
             <CardHeader>
               <CardTitle className="text-xl font-semibold">
                 Generate Color Palette
@@ -350,9 +338,6 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
                   </Select>
                 </div>
 
-                {/* {loading && (
-                  <p className="text-gray-500">Loading color scheme...</p>
-                )} */}
                 {error && <p className="text-red-500">{error}</p>}
 
                 {colorScheme && colorScheme.colors && (
@@ -374,7 +359,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
                               className="relative h-10 w-full rounded-none hover:scale-105 ease-in-out transition-all"
                               style={{ backgroundColor: color.hex.value }}
                             ></Button>
-                            {/* <p className="text-xs">{color.name.value}</p> */}
+                          
                           </div>
                         )
                       )}
@@ -383,7 +368,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
                 )}
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
         </TabsContent>
 
         <TabsContent value="typography" className="space-y-4">
