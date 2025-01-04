@@ -8,7 +8,7 @@ export default function CheckColorContrast() {
   const [backgroundColor, setBackgroundColor] = useState("#4B88EE");
 
   return (
-    <div className="container">
+    <div className="container bg-white p-4 rounded-xl ring-1 ring-accent">
       <div className="card">
         <CardLeftSide
           textColor={textColor}

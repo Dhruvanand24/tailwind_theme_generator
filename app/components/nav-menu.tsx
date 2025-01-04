@@ -14,6 +14,7 @@ import { Menu } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Customizer" },
+  { href: "/resources", label: "Resources" },
   { href: "/color-contrast-checker", label: "Check Color Contrast" },
   { href: "/config", label: "Config" },
   { href: "/about", label: "About" },

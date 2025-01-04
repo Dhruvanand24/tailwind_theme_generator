@@ -75,7 +75,6 @@ export function RatioContrast({
     <div className="contrast-section-wrapper">
       <span className="contrast-heading">Contrast</span>
       <div className="contrast-ratio-display">
-        {ratioColorShades}
         <div className={`contrast-info ${ratioColorShades}`}>
           <span className="ratio-value">{contrastRatio.toFixed(2)}</span>
           <div className="ratio-value-wrapper">
@@ -88,7 +87,6 @@ export function RatioContrast({
 
         <div className="text-rating-section">
           <div className={`small-text-rating ${smallTextColorShades}`}>
-            {smallTextColorShades}
             Small text
             <span className="star-symbol">
               {renderStars(3, smallTextStars)}

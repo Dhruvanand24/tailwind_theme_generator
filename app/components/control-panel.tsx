@@ -51,10 +51,10 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
   }, [color]);
 
   return (
-    <div className="w-full md:w-1/3 p-4 bg-background rounded-lg shadow-lg overflow-y-auto h-screen">
+    <div className="w-full md:w-1/3 p-4 bg-background rounded-lg shadow-lg overflow-y-auto h-screen bg-white ring-1 ring-accent">
       <Tabs defaultValue="colors" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="colors">
+        <TabsList className="grid w-full grid-cols-3 bg-white">
+          <TabsTrigger value="colors" className="">
             <Paintbrush className="w-4 h-4 mr-2" />
             Colors
           </TabsTrigger>
