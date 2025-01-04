@@ -47,7 +47,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
   );
   useEffect(() => {
     handleChange("backgroundColor", color);
-  }, [color, handleChange]);
+  }, [color]);
 
   return (
     <div className="w-full md:w-1/3 p-4 bg-background rounded-lg shadow-lg overflow-y-auto h-screen bg-white ring-1 ring-accent">
