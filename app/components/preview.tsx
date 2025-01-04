@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Theme } from "./customizer";
 import { useFonts } from "../FontProvider";
-import { Mail, ArrowRight, Star, Check } from "lucide-react";
+import { Star, Check } from "lucide-react";
 
 type PreviewProps = {
   theme: Theme;

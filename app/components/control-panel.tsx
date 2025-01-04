@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/card";
 import { Theme } from "./customizer";
 import { useFonts } from "../FontProvider";
-import { ChevronDown, ChevronUp, Paintbrush, Type, Layout } from "lucide-react";
+import { Paintbrush, Type, Layout } from "lucide-react";
 
 type ControlPanelProps = {
   theme: Theme;
@@ -33,7 +33,6 @@ type ControlPanelProps = {
 export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
   const fonts = useFonts();
   const [fontSearch, setFontSearch] = useState("");
-  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const [color, setColor] = useState(theme.backgroundColor);
 
   const handleChange = (
@@ -48,7 +47,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
   );
   useEffect(() => {
     handleChange("backgroundColor", color);
-  }, [color]);
+  }, [color, handleChange]);
 
   return (
     <div className="w-full md:w-1/3 p-4 bg-background rounded-lg shadow-lg overflow-y-auto h-screen bg-white ring-1 ring-accent">
