@@ -1,5 +1,4 @@
 import { GoStarFill, GoStar } from "react-icons/go";
-import "./ratioContrast.css";
 import { getContrastRatio } from "@/app/utilities/getContrastRatio";
 import {
   getOverallStars,
@@ -21,7 +20,6 @@ export function RatioContrast({
   const largeTextStars = getStarsForLargeText(contrastRatio);
   const smallTextStars = getStarsForSmallText(contrastRatio);
   const contrastGrade = getContrastGrade(contrastRatio);
-
   const overallStars = getOverallStars(
     contrastGrade,
     largeTextStars,
@@ -29,74 +27,40 @@ export function RatioContrast({
   );
 
   const renderStars = (totalStars: number, filledStars: number) => {
-    const stars = [];
-    for (let i = 0; i < totalStars; i++) {
-      stars.push(i < filledStars ? <GoStarFill key={i} /> : <GoStar key={i} />);
-    }
-    return stars;
+    return Array.from({ length: totalStars }, (_, i) =>
+      i < filledStars ? <GoStarFill key={i} /> : <GoStar key={i} />
+    );
   };
 
-  const getRatioColorBackground = () => {
-    if (contrastGrade === "Poor" || contrastGrade === "Very Poor") {
-      return "poor-contrast";
-    } else if (contrastGrade === "Good") {
-      return "good-contrast";
-    } else if (contrastGrade === "Very Good" || contrastGrade === "Super") {
-      return "very-good-contrast";
-    }
+  const getContrastClass = (stars: number) => {
+    if (stars === 3) return "bg-green-500 text-white";
+    if (stars === 2) return "bg-yellow-400 text-gray-800";
+    if (stars === 1) return "bg-red-500 text-white";
+    return "bg-gray-300 text-gray-800";
   };
 
-  const getSmallTextColorBackground = () => {
-    if (smallTextStars === 3) {
-      return "very-good-contrast";
-    } else if (smallTextStars === 2) {
-      return "good-contrast";
-    } else if (smallTextStars === 1) {
-      return "poor-contrast";
-    }
-    return "";
-  };
-
-  const getLargeTextColorBackground = () => {
-    if (largeTextStars === 3) {
-      return "very-good-contrast";
-    } else if (largeTextStars === 2) {
-      return "good-contrast";
-    } else if (largeTextStars === 1) {
-      return "poor-contrast";
-    }
-    return "";
-  };
-
-  const smallTextColorShades = getSmallTextColorBackground();
-  const largeTextColorShades = getLargeTextColorBackground();
-  const ratioColorShades = getRatioColorBackground();
   return (
-    <div className="contrast-section-wrapper">
-      <span className="contrast-heading">Contrast</span>
-      <div className="contrast-ratio-display">
-        <div className={`contrast-info ${ratioColorShades}`}>
-          <span className="ratio-value">{contrastRatio.toFixed(2)}</span>
-          <div className="ratio-value-wrapper">
-            <span className="grade-display">{contrastGrade}</span>
-            <span className="stars-display">
-              {renderStars(5, overallStars.length)}
-            </span>
+    // final colours may look different
+    <div className="flex flex-col gap-2">
+      <span className="text-sm font-medium">Contrast</span>
+
+      <div className="flex flex-col gap-2 mt-2">
+        <div className={`p-6 rounded-t-lg flex justify-between items-center ${getContrastClass(overallStars.length)}`}>
+          <span className="text-3xl font-bold">{contrastRatio.toFixed(2)}</span>
+          <div className="flex flex-col items-center">
+            <span className="font-semibold text-sm">{contrastGrade}</span>
+            <span className="flex gap-1 text-lg">{renderStars(5, overallStars.length)}</span>
           </div>
         </div>
 
-        <div className="text-rating-section">
-          <div className={`small-text-rating ${smallTextColorShades}`}>
+        <div className="flex gap-2">
+          <div className={`flex justify-between items-center w-full p-4 rounded-b-lg ${getContrastClass(smallTextStars)}`}>
             Small text
-            <span className="star-symbol">
-              {renderStars(3, smallTextStars)}
-            </span>
+            <span className="flex gap-1">{renderStars(3, smallTextStars)}</span>
           </div>
-          <div className={`large-text-rating ${largeTextColorShades}`}>
+          <div className={`flex justify-between items-center w-full p-4 rounded-b-lg ${getContrastClass(largeTextStars)}`}>
             Large text
-            <span className="star-symbol">
-              {renderStars(3, largeTextStars)}
-            </span>
+            <span className="flex gap-1">{renderStars(3, largeTextStars)}</span>
           </div>
         </div>
       </div>
