@@ -21,7 +21,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap"
           rel="stylesheet"
         ></link>
-        ;
+
         <FontProvider>
           <ThemeProvider>
             <div className="min-h-screen flex flex-col font-nunito ">
