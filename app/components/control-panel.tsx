@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import ColorPicker from "react-best-gradient-color-picker";
@@ -24,13 +24,17 @@ import {
 import { Theme } from "./customizer";
 import { useFonts } from "../FontProvider";
 import { ChevronDown, ChevronUp, Paintbrush, Type, Layout } from "lucide-react";
+import ScreenAdjustment  from "../components/screen/ScreenAdjustment"
 
 type ControlPanelProps = {
-  theme: Theme;
+  theme: Theme | null;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
 
 export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
+  if(!theme){
+    return <>Loading...</>
+  }
   const fonts = useFonts();
   const [fontSearch, setFontSearch] = useState("");
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
@@ -150,6 +154,15 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
             </CardContent>
           </Card>
 
+          <Card>
+            <CardHeader>
+              <CardTitle>Screens</CardTitle>
+              <CardDescription>Adjust properties as per Screen</CardDescription>
+            </CardHeader>
+            <CardContent>
+             <ScreenAdjustment/>
+            </CardContent>
+          </Card>
           {/* <Card>
             <CardHeader>
               <CardTitle>Gradient Background</CardTitle>
@@ -260,6 +273,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
               )}
             </CardContent>
           </Card> */}
+          
         </TabsContent>
 
         <TabsContent value="typography" className="space-y-4">
@@ -435,6 +449,7 @@ export function ControlPanel({ theme, setTheme }: ControlPanelProps) {
           </Card>
         </TabsContent>
       </Tabs>
+      
     </div>
   );
 }

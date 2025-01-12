@@ -38,17 +38,6 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(defaultTheme);
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("customTheme");
-    if (storedTheme) {
-      setTheme(JSON.parse(storedTheme));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("customTheme", JSON.stringify(theme));
-  }, [theme]);
-
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}

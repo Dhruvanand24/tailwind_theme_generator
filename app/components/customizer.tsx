@@ -3,6 +3,7 @@
 import { ControlPanel } from "./control-panel";
 import { Preview } from "./preview";
 import { useTheme } from "../contexts/ThemeContext";
+import { useScreen } from "../contexts/ScreenContext";
 
 export type Theme = {
   primaryColor: string;
@@ -31,11 +32,15 @@ export type Theme = {
 
 export function Customizer() {
   const { theme, setTheme } = useTheme();
+  const {itrativeTheme, setItrativeTheme} = useScreen();
 
+  if(!itrativeTheme){
+    <>Loading...</>
+  }
   return (
     <>
-      <ControlPanel theme={theme} setTheme={setTheme} />
-      <Preview theme={theme} />
+      <ControlPanel theme={itrativeTheme} setTheme={setItrativeTheme}/>
+      <Preview />
     </>
   );
 }

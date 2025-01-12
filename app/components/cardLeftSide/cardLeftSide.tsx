@@ -3,7 +3,6 @@ import ColorPicker from "../colorPicker/colorPicker";
 import "./cardLeftSide.css";
 import { formatColorCode } from "../../utilities/formatColorCode";
 import { RatioContrast } from "..";
-
 type CardLeftSideProps = {
   textColor: string;
   setTextColor: (color: string) => void;
@@ -95,6 +94,7 @@ export function CardLeftSide({
       </div>
 
       <RatioContrast textColor={textColor} backgroundColor={backgroundColor} />
+      
     </div>
   );
 }

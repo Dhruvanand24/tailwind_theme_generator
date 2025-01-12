@@ -1,15 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import { Button } from "@/components/ui/button";
 
 export default function ConfigPage() {
   const { theme } = useTheme();
 
+  const [pcTheme, setPcTheme] = useState(theme);
+  const [tabletTheme, setTabletTheme] =  useState(theme);
+  const [mobileTheme, setMobileTheme] = useState(theme);
+
   const tailwindConfig = `
 module.exports = {
   theme: {
     extend: {
+      screens: {
+        mobile: '320px', 
+        tablet: '768px',
+        pc: '1024px',
+      },
       colors: {
         primary: '${theme.primaryColor}',
         secondary: '${theme.secondaryColor}',
@@ -112,6 +122,26 @@ p { color: var(--p-color); font-size: var(--p-font-size); }
 `
     : ""
 }
+
+@layer utilities {
+  @screen mobile {
+    * {
+      ${mobileTheme}
+    }
+  }
+  @screen tablet {
+    * {
+      ${tabletTheme}
+    }
+  }
+  @screen pc {
+    * {
+      ${pcTheme}
+    }
+  }
+}
+
+
 `;
 
   const copyToClipboard = (text: string) => {
@@ -120,6 +150,21 @@ p { color: var(--p-color); font-size: var(--p-font-size); }
       .then(() => alert("Copied to clipboard!"))
       .catch((err) => console.error("Failed to copy: ", err));
   };
+
+  useEffect(()=>{
+    const mobileThemeData = localStorage.getItem("mobileTheme");
+    if(mobileThemeData){
+      setMobileTheme(JSON.parse(mobileThemeData));
+    }
+    const tabletThemeData = localStorage.getItem("tabletTheme");
+    if(tabletThemeData){
+      setTabletTheme(JSON.parse(tabletThemeData));
+    }
+    const pcThemeData = localStorage.getItem("pcTheme");
+    if(pcThemeData){
+      setPcTheme(JSON.parse(pcThemeData));
+    }
+  },[])
 
   return (
     <div className="p-4 space-y-4">
