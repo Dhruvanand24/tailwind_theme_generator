@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ColorPicker from "../colorPicker/colorPicker";
+import "./cardLeftSide.css";
 import { formatColorCode } from "../../utilities/formatColorCode";
 import { RatioContrast } from "..";
 
@@ -40,14 +41,11 @@ export function CardLeftSide({
   const handleBackgroundColorChange = handleColorChange(setBackgroundColor);
 
   return (
-    <div className="w-full p-8 flex flex-col gap-5">
-      <div className="flex gap-5">
-        {/* Text Color Section */}
-        <div className="w-full">
-          <label htmlFor="text-color" className="text-sm font-medium">
-            Text color
-          </label>
-          <div className="relative">
+    <div className="card-container">
+      <div className="container-wrapper">
+        <div className="text-color-section">
+          <label htmlFor="text-color">Text color</label>
+          <div className="input-wrapper">
             <input
               type="text"
               name="text-color"
@@ -55,11 +53,9 @@ export function CardLeftSide({
               value={textColor}
               onBlur={handleTextColorBlur}
               onChange={handleTextColorChange}
-              className="mt-2 w-full border border-gray-300 p-2 rounded-lg outline-none text-base"
             />
             <button
               onClick={() => setIsTextColorPickerOpen(true)}
-              className="w-8 h-8 rounded-md border border-gray-300 absolute top-4 right-2"
               style={{ backgroundColor: textColor }}
             />
             {isTextColorPickerOpen && (
@@ -72,12 +68,9 @@ export function CardLeftSide({
           </div>
         </div>
 
-        {/* Background Color Section */}
-        <div className="w-full">
-          <label htmlFor="background-color" className="text-sm font-medium">
-            Background color
-          </label>
-          <div className="relative">
+        <div className="background-color-section">
+          <label htmlFor="background-color">Background color</label>
+          <div className="input-wrapper">
             <input
               type="text"
               name="background-color"
@@ -85,11 +78,9 @@ export function CardLeftSide({
               value={backgroundColor}
               onBlur={handleBackgroundColorBlur}
               onChange={handleBackgroundColorChange}
-              className="mt-2 w-full border border-gray-300 p-2 rounded-lg outline-none text-base"
             />
             <button
               onClick={() => setIsBackgroundColorPickerOpen(true)}
-              className="w-8 h-8 rounded-md border border-gray-300 absolute top-4 right-2"
               style={{ backgroundColor: backgroundColor }}
             />
             {isBackgroundColorPickerOpen && (
@@ -103,7 +94,6 @@ export function CardLeftSide({
         </div>
       </div>
 
-      {/* Ratio Contrast Component */}
       <RatioContrast textColor={textColor} backgroundColor={backgroundColor} />
     </div>
   );
