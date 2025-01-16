@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./cardRightSide.css";
 import {
   ContentItemType,
   getRandomTextPlaceholder,
@@ -24,9 +23,16 @@ export function CardRightSide({
   }, []);
 
   return (
-    <div className="cardRightSide" style={{ backgroundColor: backgroundColor }}>
-      <h3 style={{ color: textColor }}>{contentItem.title}</h3>
-      <p style={{ color: textColor }}>{contentItem.text}</p>
+    <div
+      className="w-full flex flex-col items-center justify-center text-center gap-12 p-5 rounded-2xl"
+      style={{ backgroundColor }}
+    >
+      <h3 className="text-2xl font-medium" style={{ color: textColor }}>
+        {contentItem.title}
+      </h3>
+      <p className="text-lg font-medium" style={{ color: textColor }}>
+        {contentItem.text}
+      </p>
     </div>
   );
 }
