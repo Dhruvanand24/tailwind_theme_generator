@@ -2,7 +2,13 @@ import Image from "next/image";
 import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 
-const ThemeContent = ({ title, imageSrc }) => (
+
+
+interface themeContentProps {
+  title: string;
+  imageSrc: string;
+}
+const ThemeContent: React.FC<themeContentProps> = ({ title, imageSrc }) => (
   <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-2">
     <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
       <span className="font-bold text-neutral-700 dark:text-neutral-200">
@@ -22,7 +28,11 @@ const ThemeContent = ({ title, imageSrc }) => (
   </div>
 );
 
-const ComponentContent = ({ title, imageSrc }) => (
+interface ComponentContentProps {
+  title: string;
+  imageSrc: string;
+}
+const ComponentContent: React.FC<ComponentContentProps> = ({ title, imageSrc }) => (
   <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-2">
     <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
       <span className="font-bold text-neutral-700 dark:text-neutral-200">
@@ -42,7 +52,11 @@ const ComponentContent = ({ title, imageSrc }) => (
   </div>
 );
 
-const TypographyContent = ({ title, imageSrc }) => (
+interface TypographyContentProps {
+  title: string;
+  imageSrc: string;
+}
+const TypographyContent: React.FC<TypographyContentProps> = ({ title, imageSrc }) => (
   <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-2">
     <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
       <span className="font-bold text-neutral-700 dark:text-neutral-200">
@@ -62,7 +76,11 @@ const TypographyContent = ({ title, imageSrc }) => (
   </div>
 );
 
-const AssetContent = ({ title, imageSrc }) => (
+interface AssetContentProps {
+  title: string;
+  imageSrc: string;
+}
+const AssetContent: React.FC<AssetContentProps> = ({ title, imageSrc }) => (
   <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-2">
     <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
       <span className="font-bold text-neutral-700 dark:text-neutral-200">
