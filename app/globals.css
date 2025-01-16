@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap");
+@import "locomotive-scroll/dist/locomotive-scroll.css";
+
 
 body {
   font-family: Arial, Helvetica, sans-serif;
