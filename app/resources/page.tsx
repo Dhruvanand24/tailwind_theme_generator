@@ -217,7 +217,7 @@ export default function AppleCardsCarouselDemo() {
       </h2>
       <Carousel items={themeCards} />
       <h2 className="max-w-7xl px-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
-        Color Palette
+        Components
       </h2>
       <Carousel items={componentsCards} />
       <h2 className="max-w-7xl px-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
